@@ -10,6 +10,3 @@ def solution(s):
         return 1
     else:
         return 0
-
-s = 'cdcd'
-print(solution(s))
