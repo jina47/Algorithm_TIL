@@ -24,7 +24,4 @@ def solution(dirs):
             if [x-1, y, 'L'] not in lst and [x,y, dirs[n]] not in lst:
                 lst.append([x, y, dirs[n]])
                 answer += 1
-        print(x, y, answer, lst)
-
-dirs = "LULLLLLLU"
-solution(dirs)
+    return answer
