@@ -18,7 +18,3 @@ def solution(prices):
                 answer[i] +=1
 
     return answer
-
-
-prices = [1,2,3,2,3]
-solution(prices)
