@@ -1,4 +1,4 @@
-# BAEKJOON
+# Baekjoon
 
 출처 : [BAEKJOON](https://www.acmicpc.net/)
 
