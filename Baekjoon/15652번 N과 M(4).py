@@ -1,0 +1,11 @@
+import itertools
+
+# 자연수 N과 M
+N, M = map(int, input().split())
+
+# 1부터 N까지 자연수 중 M개를 고른 수열
+numbers = [n for n in range(1, N+1)]
+
+for a in itertools.product(numbers, repeat = M):
+    if sorted(list(a)) == list(a):
+        print(' '.join(map(str, a)))
