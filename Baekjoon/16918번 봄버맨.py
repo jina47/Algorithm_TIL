@@ -1,3 +1,7 @@
+import sys
+
+### 첫 번째 풀이 ###
+
 R, C, N = map(int, input().split())
 matrix = [[] for _ in range(R)]
 # 폭탄이 있으면 1, 없으면 0으로 표현
@@ -69,3 +73,69 @@ for j in range(R):
         else:
             print('O', end = '')
     print()
+
+
+
+### 두 번째 풀이 ###
+
+R, C, N = map(int, input().split())
+# 0, 1초의 상태
+board = []
+for _ in range(R):
+    board.append(list(s for s in sys.stdin.readline().strip()))
+
+# 5, 9, 13 .. 초의 상태
+board1 = [['O' for _ in range(C)] for _ in range(R)]
+# 짝수 초의 상태
+board2 = [['O' for _ in range(C)] for _ in range(R)]
+# 3, 7, 11 .. 초의 상태
+board3 = [['O' for _ in range(C)] for _ in range(R)]
+
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+# 첫 번째 폭탄이 터졌을 때
+for r in range(R):
+    for c in range(C):
+        # 폭탄이 있으면 다음 번에 터진 상태
+        if board[r][c] == 'O':
+            board3[r][c] = '.'
+        else:
+            # 폭탄이 터진 상태인데 상하좌우 폭탄이 하나라도 있으면 다음 번에도 터진 상태 유지
+            for i in range(4):
+                nr = r + dx[i]
+                nc = c + dy[i]
+                if 0 <= nr < R and 0 <= nc < C and board[nr][nc] != '.':
+                    board3[r][c] = '.'
+                    break
+# 두 번째 폭탄이 터졌을 때
+for r in range(R):
+    for c in range(C):
+        # 폭탄이 있으면 다음 번에 터진 상태
+        if board3[r][c] == 'O':
+            board1[r][c] = '.'
+        else:
+            # 폭탄이 터진 상태인데 상하좌우 폭탄이 하나라도 있으면 다음 번에도 터진 상태 유지
+            for i in range(4):
+                nr = r + dx[i]
+                nc = c + dy[i]
+                if 0 <= nr < R and 0 <= nc < C and board3[nr][nc] != '.':
+                    board1[r][c] = '.'
+                    break
+
+# N = 1초인 경우
+if N <= 1:
+    for r in range(R):
+        print(''.join(board[r]))
+else:
+    # N = 5, 9, 13 .. 초의 경우
+    if N % 4 == 1:
+        for r in range(R):
+            print(''.join(board1[r]))
+    # N = 3, 7, 11 .. 초의 경우
+    elif N % 4 == 3:
+        for r in range(R):
+            print(''.join(board3[r]))
+    # N = 짝수인 경우
+    else:
+        for r in range(R):
+            print(''.join(board2[r]))
