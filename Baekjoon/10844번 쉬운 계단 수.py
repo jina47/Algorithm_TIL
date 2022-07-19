@@ -1,21 +1,21 @@
 # 입력값 N
 N = int(input())
 
-number = [1, 2, 3, 4, 5, 6, 7, 8, 9] 
-# n번째 자리수에 올 수 있는 수의 개수는 2**(n-1)
-# x로 시작했을 때 n번째 자리의 최댓값 = x + (n-1)
-# x로 시작했을 때 n번째 자리의 최솟값 = x - (n-1) 
-# x로 시작하는 경우 자릿수가 n일때 라고 생각해보자
-# 자릿수가 n-1일 때 경우에 그 다음수로 넣을 수 있는 것들을 따져보기
-# bottom-up방식으로 1 2 3 4 5 6 7 8 9로 시작
-# 9개의 리스트로만 계속 해주면 되지 않을까...?!
-for i in range(2, N+1):
-    lst = []
-    for num in number:
-        if num-1 >= 0:
-            lst.append(num-1)
-        if num+1 <= 9:
-            lst.append(num+1)
-    number = lst
-    print(number.count(0), number.count(9))
-print(len(number) % 1000000000)
+# 매 자리 수마다 가능한 개수 세기
+fibo = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+for i in range(N-1):
+    new = [0 for _ in range(10)]
+    for j in range(10):
+        # 이전 숫자가 0이면 다음에 1만 가능, 이전 숫자가 9이면 다음에 8만 가능
+        if j == 0:
+            new[1] += fibo[j]
+        elif j == 9:
+            new[8] += fibo[j]
+        # 이전 숫자가 1~8이면 다음에 가능한 수는 j-1, j+1
+        else:
+            new[j-1] += fibo[j]
+            new[j+1] += fibo[j]
+    fibo = new
+
+# 계단 수의 총 개수는 sum(fibo)
+print(sum(fibo)%1000000000)
