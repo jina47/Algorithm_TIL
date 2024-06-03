@@ -1,7 +1,8 @@
 # Algorithm_TIL 
 
+### Learn and Understand Algorithms
+
 - ***programmers***
 
-- ***백준***
+- ***백준 (Baekjoon)***
 
-알고리즘을 공부하고 코딩을 작성하여 저장하는 repository 입니다.
