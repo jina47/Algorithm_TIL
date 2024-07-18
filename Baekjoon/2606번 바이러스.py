@@ -1,34 +1,21 @@
-from collections import deque as dq
+n = int(input())
+pair = int(input())
+neighbor = [[] for _ in range(n+1)]
+visited = [0 for _ in range(n+1)]
+for _ in range(pair):
+    c1, c2 = map(int, input().split())
+    neighbor[c1].append(c2)
+    neighbor[c2].append(c1)
 
-# bfs 이용
-def bfs(graph):
-    visited = []
-    que = dq([1])
-    while que:
-        n = que.popleft()
-        if n not in visited:
-            visited.append(n)
-            for s in graph[n]:
-                if s not in visited:
-                    que.append(s)
-    return len(visited)
+que = [1]
+visited[1] = 1
+cnt = 0
+while que:
+    cur = que.pop(0)
+    for n in neighbor[cur]:
+        if visited[n] == 0:
+            cnt += 1
+            que.append(n)
+            visited[n] = 1
 
-
-
-N = int(input())
-M = int(input())
-
-graph = {}
-for _ in range(M):
-    n1, n2 = map(int, input().split())
-    if n1 not in graph:
-        graph[n1] = [n2]
-    else:
-        graph[n1].append(n2)
-    if n2 not in graph:
-        graph[n2] = [n1]
-    else:
-        graph[n2].append(n1)
-
-
-print(bfs(graph)-1)
+print(cnt)
